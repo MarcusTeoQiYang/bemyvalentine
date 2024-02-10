@@ -17,6 +17,7 @@ function App() {
         position:'fixed',
         width:'100vw',
         height:'100vh',
+        filter: 'blur(1.5px)'
       }}
       snowflakeCount={80}
       radius={[10,20]}

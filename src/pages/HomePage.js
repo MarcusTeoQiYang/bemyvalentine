@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BearKiss from '../img/bearKiss.gif'
 import BearKiss2 from '../img/bearKiss2.gif'
 import BearJump from '../img/bearJump.gif'
@@ -27,6 +27,34 @@ const HomePage = () => {
     const [yesState, setYesState] = useState(false)
     const [noState, setNoState] = useState(false)
 
+    const [buttonState, setButtonState] = useState('row')
+
+    const calculateTimeLeft = () => {
+        const currentDate = new Date();
+        const valentinesDay = new Date(currentDate.getFullYear(), 1, 14); // Months are 0-based in JavaScript Date object
+    
+        if (currentDate > valentinesDay) {
+          valentinesDay.setFullYear(valentinesDay.getFullYear() + 1); // If Valentine's Day has passed, set it for the next year
+        }
+    
+        const timeDifference = valentinesDay - currentDate;
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+        return { days, hours, minutes, seconds };
+      };
+    
+      const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setTimeLeft(calculateTimeLeft());
+        }, 1000);
+    
+        return () => clearTimeout(timer);
+      }, [timeLeft]);
 
     const noClicked = () => {
         setButtonSize(buttonSize + 10);
@@ -34,14 +62,15 @@ const HomePage = () => {
         setNoState(true)
         setYesState(false)
         setYesNumber(1)
-        console.log(noNumber)
+        console.log('no' + noNumber)
 
         if(yesState) {
             setGIF(BearReally)
-            setHeader('But you clicked yes!!')
+            setHeader('But you clicked yes...')
             setButtonSize()
             setYesNumber(1)
             setButtonEnable(true)
+            setYesColor()
         }
 
         if(noNumber === 3) {
@@ -64,19 +93,13 @@ const HomePage = () => {
             setGIF(BearCrying)
             setHeader("Awwww ok... :(")
             setYesColor('#E72650')
+            setButtonState('column')
         } if (noNumber === 20) {
             setGIF(BearDepress)
             setHeader("Ok fine...")
             setYesColor('#d60000')
         }
       };
-
-    const resetSize = () => {
-        setButtonSize(20)
-        setButtonEnable(false)
-        setHeader("Will you be my valentine?")
-        setGIF(BearQuestion)
-    }
 
     const yesClicked = () => {
         setYesNumber(yesNumber + 1)
@@ -87,22 +110,22 @@ const HomePage = () => {
         setNoNumber(1)
         setButtonSize(20)
         setYesColor()
-        console.log(yesNumber)
-
-        if(noState) {
-            setYesNumber(1)
-        }
+        console.log('yes' + yesNumber)
+        setButtonState('row')
 
 
         if(yesNumber === 1) {
             setGIF(BearJump)
             setHeader("YAY!!!!!!!!!!!!")
+            setYesColor('#FF8896')
         } if(yesNumber === 2) {
             setGIF(BearKiss2)
-            setHeader("YAY!!!!!!!!!!!!!!!!!!!!")
-        } if(yesNumber === 3) {
+            setHeader("YOU MADE MY DAY!!!!")
+            setYesColor('#FF7871')
+        } if(yesNumber >= 3) {
             setGIF(BearKiss)
-            setHeader("YAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            setHeader("YOU JUST MADE MY VALENTINES DAY THE BEST EVER!!!! ")
+            setYesColor('#ff257e')
         }
 
 
@@ -115,23 +138,22 @@ const HomePage = () => {
 
 
         <div className="mainframe">
+            <div className='clock'>
+                <span>{timeLeft.days}</span> days&nbsp;
+                <span>{timeLeft.hours}</span> hours&nbsp;
+                <span>{timeLeft.minutes}</span> minutes&nbsp;
+                <span>{timeLeft.seconds}</span> seconds&nbsp;
+                <span>to <b>VALENTINE'S</b> day!!</span>
+            </div>
             <h1>{Header}</h1>
             <div className="img">
                 <img src={GIF} alt='bearQuestion'/>
             </div>
-            <div className="buttons">
+            <div className="buttons" style={{flexDirection: buttonState}}>
                 <button className='Yes' style={{fontSize: buttonSize, backgroundColor: yesColor}} onClick={yesClicked} >Yes</button>
                 <button className='No' onClick={noClicked} disabled={buttonEnabled}>No</button>
             </div>
-                {/* <button onClick={resetSize}>Reset</button> */}
-            <p className='copyright'>© Marcus Teo</p>
-            {/* <button style={{backgroundColor:'#ffc5e6'}}>Test</button>
-            <button style={{backgroundColor:'#FF8896'}}>Test</button>
-            <button style={{backgroundColor:'#FF7871'}}>Test</button>
-            <button style={{backgroundColor:'#ff257e'}}>Test</button>
-            <button style={{backgroundColor:'#ff2644'}}>Test</button>
-            <button style={{backgroundColor:'#E72650'}}>Test</button>
-            <button style={{backgroundColor:'#d60000'}}>Test</button> */}
+            <p className='copyright'>© From whoever send you this.</p>
 
 
 

@@ -3,6 +3,7 @@
 * {
   font-family: "Quicksand";
   color: black;
+  
 }
 
 body {
@@ -13,11 +14,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffBBC1;
+
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    
 }
 
 .mainframe {
@@ -25,7 +29,13 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   z-index: 100;
+  width: auto;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  
 }
 
 .App {
@@ -36,6 +46,8 @@ code {
     min-height:95vh;
     background-size: cover;
     width: 100%;
+    
+    
 }
 
 /* .img {
@@ -61,4 +73,19 @@ code {
 }
 .copyright {
   font-weight: 600;
+}
+
+h1 {
+  text-align: center;
+
+
+}
+
+.clock {
+  margin: 10px;
+  padding: 15px;
+  font-weight: 600;
+  border: solid;
+  border-radius: 10px;
+  background-color: #ffc5e6;
 }
