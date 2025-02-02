@@ -27,8 +27,9 @@ function App() {
       rotationSpeed={[-1,1]}
       />
       <Routes>
-            <Route path="/" element={<HomePage/>}/>
-            {/* <Route path="/test" element={<TestPage/>}/> */}
+            <Route path="/" element={<TestPage/>}/>
+            <Route path="/question" element={<HomePage/>}/>
+            {/* <Route path="/admin"/> */}
       </Routes>
     </div>
   );

@@ -10,6 +10,7 @@ import BearCrying from '../img/bearCrying.gif'
 import BearDepress from '../img/bearDepress.gif'
 import BearCool2 from '../img/bearCool2.gif'
 import BearReally from '../img/bearReally.gif'
+import pinkArrow from '../img/pinkArrow2.gif'
 
 const HomePage = () => {
 
@@ -63,6 +64,7 @@ const HomePage = () => {
         setYesState(false)
         setYesNumber(1)
         console.log('no' + noNumber)
+        setIsVisible('hidden');
 
         if(yesState) {
             setGIF(BearReally)
@@ -112,6 +114,7 @@ const HomePage = () => {
         setYesColor()
         console.log('yes' + yesNumber)
         setButtonState('row')
+        setIsVisible('visible');
 
 
         if(yesNumber === 1) {
@@ -126,10 +129,13 @@ const HomePage = () => {
             setGIF(BearKiss)
             setHeader("YOU JUST MADE MY VALENTINES DAY THE BEST EVER!!!! ")
             setYesColor('#ff257e')
+            setIsVisible('hidden');
         }
 
 
     }
+
+    const [isVisible, setIsVisible] = useState('hidden');
 
 
 
@@ -149,7 +155,11 @@ const HomePage = () => {
             <div className="img">
                 <img src={GIF} alt='bearQuestion'/>
             </div>
+            
             <div className="buttons" style={{flexDirection: buttonState}}>
+                <div className="arrow" style={{position: 'relative', right:'40px'}}>
+                    <img src={pinkArrow} alt="pinkArrow"style={{width:'50px', position: 'absolute',visibility: isVisible}}/>
+                </div>
                 <button className='Yes' style={{fontSize: buttonSize, backgroundColor: yesColor}} onClick={yesClicked} >Yes</button>
                 <button className='No' onClick={noClicked} disabled={buttonEnabled}>No</button>
             </div>
