@@ -1,5 +1,6 @@
 
 import bearGift from '../img/bearGift.png'
+import WenGabe from '../img/WenGabe.jpeg'
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
